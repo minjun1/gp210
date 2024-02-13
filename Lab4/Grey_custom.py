@@ -1,5 +1,5 @@
 import sepPlot_custom
-import SepVector
+from sep_python.sep_vector import FloatVector,get_sep_vector
 import numpy
 import matplotlib.animation as animation
 from IPython.display import HTML
@@ -8,7 +8,7 @@ from IPython.display import HTML
 class Grey(sepPlot_custom.sepPlot):
 	def __init__(self,plt,data,**kw):
 		self.kw=kw
-		self.hyper=data.getHyper()
+		self.hyper=data.get_hyper()
 		super().__init__(plt,data,kw)
 		self.cmaps={"I":"gray","j":"gist_rainbow","J":"rainbow","F":"seismic"}
 		self.plt=plt

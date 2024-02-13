@@ -2,7 +2,7 @@ from sep_python.sep_vector import FloatVector,get_sep_vector
 from sep_python.hypercube import Hypercube
 
 import numpy as np
-import genericIO
+
 
 def vel_txt2sep(filename,cmp_sepVec):
 	vrms=[]

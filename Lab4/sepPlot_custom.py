@@ -1,7 +1,11 @@
 import numpy as np
-import SepVector
-import Hypercube
-import pySepVector
+# import SepVector
+# import Hypercube
+from sep_python.sep_vector import FloatVector,get_sep_vector
+from sep_python.hypercube import Hypercube, Axis
+import sep_python.modes
+io=sep_python.modes.default_io 
+# import pySepVector
 import numpy
 from ipywidgets import widgets, interactive
 import matplotlib.animation as animation
@@ -72,10 +76,10 @@ class Dataset:
            vector=vector (expecting a sepVector"""
         if "vector" in kw:
             self.data = kw["vector"]
-            if not isinstance(self.data, SepVector.vector):
-                raise Exception("vector muse be type SepVector.vector")
-        else:
-            raise Exception("Did not find anyway to initialize dataset object")
+            # if not isinstance(self.data, SepVector.vector):
+            #     raise Exception("vector muse be type SepVector.vector")
+        # else:
+        #     raise Exception("Did not find anyway to initialize dataset object")
         self.hyper = self.data.getHyper()
 
     def getHyper(self):
@@ -198,34 +202,34 @@ class sepPlot:
             data - sepVector object
             kw   - optional arguments"""
         self.data = Dataset(vector=data)
-        self.hyper=data.getHyper()
+        self.hyper=data.get_hyper()
         self.options = self.setDefaults()
         self.plt = plt
         self.move = 1
-        self.orient = Orient(hyper=self.data.getHyper())
+        self.orient = Orient(hyper=self.data.get_hyper())
 
     def setDefaults(self):
         """Set defaults"""
         o = Options()
         o.addParam("title", "Title for plot", "")
         o.addParam("label2", "Label for second axis", None)
-        for i in range(len(self.data.getHyper().axes)):
+        for i in range(len(self.data.get_hyper().axes)):
             o.addParam(
                 "label%d" %
                 (i + 1), "Label for %d axis" %
-                (i + 1), self.data.getHyper().axes[i].label)
+                (i + 1), self.data.get_hyper().axes[i].label)
             o.addParam(
                 "o%d" %
                 (i + 1), "origin for %d axis" %
-                (i + 1), self.data.getHyper().axes[i].o)
+                (i + 1), self.data.get_hyper().axes[i].o)
             o.addParam(
                 "d%d" %
                 (i + 1), "sampling for %d axis" %
-                (i + 1), self.data.getHyper().axes[i].d)
+                (i + 1), self.data.get_hyper().axes[i].d)
             o.addParam(
                 "min%d" %
                 (i + 1), "Miimum for %d axis" %
-                (i + 1), self.data.getHyper().axes[i].o)
+                (i + 1), self.data.get_hyper().axes[i].o)
             o.addParam(
                 "max%d" %
                 (i +
@@ -233,9 +237,9 @@ class sepPlot:
                 "Maximum for %d axis" %
                 (i +
                  1),
-                self.data.getHyper().axes[i].o +
-                self.data.getHyper().axes[i].d *
-                self.data.getHyper().axes[i].n)
+                self.data.get_hyper().axes[i].o +
+                self.data.get_hyper().axes[i].d *
+                self.data.get_hyper().axes[i].n)
         o.addParam("titleFontSize", "Font size for title", 18)
         o.addParam("labelFontSize", "Font size for label", 14)
         o.addParam("figsize", "Size of figure to plot", None)
