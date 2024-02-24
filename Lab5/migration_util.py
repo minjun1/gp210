@@ -122,6 +122,7 @@ def phaseshift_vofz_migration(adj,add,model_sepVec,data_sepVec,vel_sepVec):
         ft2axis(-1,1,dataComplex_sepVec) 
         data_sepVec.get_nd_array()[:] = data_sepVec.get_nd_array() + dataComplex_sepVec.get_nd_array().real
 
+
 def kirchfast(adj,add,model_sepVec,data_sepVec,vrms_sepVec,amax):
     """
     Function to apply poststack kirchoff migration.
